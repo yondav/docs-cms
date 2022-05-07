@@ -1,12 +1,11 @@
 {
   "name": "feta-docs",
   "version": "1.0.1",
-  "description": "tailwind starter using parcel, tailwind and twin.macro",
-  "main": "index.js",
+  "description": "",
   "bin": "./bin/cli.js",
   "scripts": {
     "clean": "shx rm -rf dist .parcel-cache",
-    "build": "yarn clean && parcel build public/index.html",
+    "build": "node public/main.js && yarn clean && parcel build public/index.html",
     "start": "yarn clean && parcel public/index.html",
     "fmt": "prettier --write '{*,**/*}.{js,ts,jsx,tsx,json}'",
     "lint": "eslint . && prettier --check '{*,**/*}.{js,ts,jsx,tsx,json}'",
