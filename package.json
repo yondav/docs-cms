@@ -1,6 +1,6 @@
 {
-  "name": "@ydstarters/parcel-starter-tw",
-  "version": "1.0.7",
+  "name": "feta-docs",
+  "version": "1.0.1",
   "description": "tailwind starter using parcel, tailwind and twin.macro",
   "main": "index.js",
   "bin": "./bin/cli.js",
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yondav/parcel-starter-tw.git"
+    "url": "https://github.com/FetaOptions/docs-cms"
   },
   "keywords": [],
   "author": "Yoni David",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yondav/parcel-starter-tw/issues"
+    "url": "https://github.com/FetaOptions/docs-cms/issues"
   },
-  "homepage": "https://github.com/yondav/parcel-starter-tw#readme",
+  "homepage": "https://github.com/FetaOptions/docs-cms#readme",
   "dependencies": {
     "@babel/core": "^7.16.10",
     "react": "^17.0.0",
