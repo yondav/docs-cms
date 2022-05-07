@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FetaOptions/docs-cms"
+    "url": "https://github.com/yondav/docs-cms"
   },
   "keywords": [],
   "author": "Yoni David",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FetaOptions/docs-cms/issues"
+    "url": "https://github.com/yondav/docs-cms/issues"
   },
-  "homepage": "https://github.com/FetaOptions/docs-cms#readme",
+  "homepage": "https://github.com/yondav/docs-cms#readme",
   "dependencies": {
     "@babel/core": "^7.16.10",
     "react": "^17.0.0",
