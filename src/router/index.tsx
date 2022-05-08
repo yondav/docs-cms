@@ -7,7 +7,9 @@ const Router = () => {
     <Routes>
       <Route path='/' element={<MainWrapper />}>
         <Route path=':page/' element={<div>PAGE</div>}>
-          <Route path=':section' element={<div>SECTION</div>}></Route>
+          <Route path=':section' element={<div>SECTION</div>}>
+            <Route path=':subsection' element={<div>SUBSECTION</div>} />
+          </Route>
         </Route>
       </Route>
     </Routes>
