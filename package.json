@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/yondav/docs-cms#readme",
   "dependencies": {
+    "@apollo/client": "^3.6.2",
     "@babel/core": "^7.16.10",
     "framer-motion": "^6.3.3",
+    "graphql": "^16.4.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-router-dom": "^6.3.0",

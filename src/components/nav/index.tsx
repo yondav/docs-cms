@@ -25,7 +25,7 @@ const Nav = () => {
             tw='h-full cursor-pointer relative'
             onClick={toggleSideBar}
             tabIndex={-1}
-            onBlur={e => !e.currentTarget.contains(e.relatedTarget) && setActive(false)}
+            // onBlur={e => !e.currentTarget.contains(e.relatedTarget) && setActive(false)}
           >
             <div tw='cursor-pointer'>
               <Mobile.Burger active={sideBar} />

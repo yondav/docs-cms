@@ -31,7 +31,6 @@ export const ThemeProvider: React.FC = ({ children }) => {
   const HTML = document?.querySelector('html')?.classList;
 
   useEffect(() => {
-    console.log(getCurrentTheme());
     if (dark) {
       HTML?.add('dark');
       localStorage.setItem('dark', 'true');
