@@ -45,7 +45,6 @@ h3 {
 p {}
 
 a {
-  ${tw`text-purple-500 hover:text-yellow-500 transition-all duration-300 ease-in`}
   text-decoration: none;
 }
 `;

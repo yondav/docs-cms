@@ -5,7 +5,11 @@ import MainWrapper from './mainWrapper';
 const Router = () => {
   return (
     <Routes>
-      <Route path='/' element={<MainWrapper />} />
+      <Route path='/' element={<MainWrapper />}>
+        <Route path=':page/' element={<div>PAGE</div>}>
+          <Route path=':section' element={<div>SECTION</div>}></Route>
+        </Route>
+      </Route>
     </Routes>
   );
 };

@@ -5,13 +5,13 @@ import { IPage } from '../../types/store';
 interface IStoreContext {
   loading: boolean;
   error: any;
-  pages: [IPage] | null;
+  data: { pages: [IPage] } | null;
 }
 
 const defaultState = {
   loading: true,
   error: false,
-  pages: null,
+  data: null,
 };
 
 export const StoreContext = createContext<IStoreContext>(defaultState);
