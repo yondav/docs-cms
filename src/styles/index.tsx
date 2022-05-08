@@ -1,22 +1,33 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
+import { root, dark } from './vars';
 
 const CustomStyles = createGlobalStyle`
-:root {
-  --font-primary: 'Montserrat', sans-serif;
+:root { ${root} }
+
+.dark { ${dark} }
+
+.Toastify__progress-bar {
+  background-color: var(--orange-primary);
+  background: linear-gradient(206.1deg, var(--yellow-primary) 6.41%, var(--red-primary) 89.64%);
 }
 
-.dark {}
-
-.Toastify__progress-bar {}
-
 html {
-  ${tw`min-w-[350px] text-base`}
+  min-width: 350px;
+  font-size: 16px;
+  scroll-behavior: smooth;
+  ${tw`transition-all duration-300 ease-in-out`}
+}
+
+@media only screen and (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 body {
-  ${tw`font-primary font-normal bg-gray-900 text-gray-100`}
+  ${tw`bg-neutral-200 text-neutral-800 font-primary font-normal transition-all duration-300 ease-in-out`}
 }
 
 h1 {

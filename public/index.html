@@ -9,7 +9,6 @@
 
   <!-- Primary Meta Tags -->
   <title>Parcel-Tailwind Starter</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <meta name="title" content="Parcel-Tailwind Starter" />
   <meta name="description"
     content="Starter with configuration for tailwind with twin macros using parcel and typescript" />
@@ -42,17 +41,6 @@
 <body>
   <div id="root"></div>
   <script type="module" src="../src/index.tsx"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 
 </html>
