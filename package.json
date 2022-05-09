@@ -1,12 +1,11 @@
 {
   "name": "feta-docs",
   "version": "1.0.1",
-  "description": "tailwind starter using parcel, tailwind and twin.macro",
-  "main": "index.js",
+  "description": "",
   "bin": "./bin/cli.js",
   "scripts": {
     "clean": "shx rm -rf dist .parcel-cache",
-    "build": "yarn clean && parcel build public/index.html",
+    "build": "node public/main.js && yarn clean && parcel build public/index.html",
     "start": "yarn clean && parcel public/index.html",
     "fmt": "prettier --write '{*,**/*}.{js,ts,jsx,tsx,json}'",
     "lint": "eslint . && prettier --check '{*,**/*}.{js,ts,jsx,tsx,json}'",
@@ -15,21 +14,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FetaOptions/docs-cms"
+    "url": "https://github.com/yondav/docs-cms"
   },
   "keywords": [],
   "author": "Yoni David",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FetaOptions/docs-cms/issues"
+    "url": "https://github.com/yondav/docs-cms/issues"
   },
-  "homepage": "https://github.com/FetaOptions/docs-cms#readme",
+  "homepage": "https://github.com/yondav/docs-cms#readme",
   "dependencies": {
+    "@apollo/client": "^3.6.2",
     "@babel/core": "^7.16.10",
+    "@graphcms/rich-text-react-renderer": "^0.5.0",
+    "@graphcms/rich-text-types": "^0.4.0",
+    "framer-motion": "^6.3.3",
+    "graphql": "^16.4.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-router-dom": "^6.3.0",
     "styled-components": "^5.3.3",
-    "tailwindcss": "^3.0.15",
+    "tailwindcss": "^3.0.24",
     "twin.macro": "^2.8.2"
   },
   "devDependencies": {
@@ -47,6 +52,7 @@
     "@typescript-eslint/parser": "^5.9.1",
     "babel-plugin-styled-components": "^2.0.2",
     "babel-plugin-twin": "^1.0.2",
+    "buffer": "^6.0.3",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -54,6 +60,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "parcel": "^2.2.0",
     "prettier": "^2.5.1",
+    "process": "^0.11.10",
     "shx": "^0.3.4",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4"
