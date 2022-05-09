@@ -3,7 +3,6 @@ import tw, { styled, css } from 'twin.macro';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { StoreContext } from '../../context/store/store.context';
-import Logo from '../svg/logo';
 import { IPage, ISection } from '../../types/store';
 import { IActiveSIdeBar } from '../../types/ui';
 
@@ -21,9 +20,6 @@ const SideBar = () => {
 
   return (
     <Container>
-      <div tw='lg:hidden w-32 text-neutral-800 mr-auto px-6 py-4'>
-        <Logo />
-      </div>
       <Pages active={active} pages={data?.pages} />
     </Container>
   );
