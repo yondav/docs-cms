@@ -8,7 +8,7 @@ import GlobalStyles from './styles';
 import App from './App';
 
 const client = new ApolloClient({
-  uri: process.env.GRAPH,
+  uri: 'https://api-us-east-1.graphcms.com/v2/cl2w1iu661jfs01z38wxcf432/master',
   cache: new InMemoryCache(),
 });
 
