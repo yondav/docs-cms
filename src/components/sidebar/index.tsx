@@ -10,7 +10,7 @@ const Container = styled(motion.nav)`
     @media (min-width: 768px) {
       flex-basis: 30%;
     }
-    ${tw`border-r border-neutral-300 absolute w-full h-full min-h-screen bg-neutral-200 top-0 left-0 md:relative`}
+    ${tw`border-r border-neutral-300 absolute w-full h-full bg-neutral-200 top-0 left-0 md:relative`}
   `}
 `;
 
@@ -49,15 +49,15 @@ const SideBar = () => {
               <Button onClick={() => setter('page', pg.slug)}>{pg.title}</Button>
             </Link>
             {active.page === pg.slug && !!pg.sections && pg.sections.length > 0 && (
-              <ul tw='ml-12 mt-4'>
+              <ul tw='mt-4'>
                 {pg.sections.map((sect, i) => (
                   <li key={i} onClick={() => setter('section', sect.slug)} tw='mt-2'>
                     <Link to={`${pg.slug}/${sect.slug}`}>{sect.title}</Link>
                     {active.section === sect.slug && !!sect.subSections && sect.subSections.length > 0 && (
-                      <ul tw='ml-12 mt-4'>
+                      <ul tw='mt-4'>
                         {sect.subSections.map((sub, i) => (
-                          <li key={i} tw='mt-2'>
-                            <Link to={`${pg.slug}/ ${sect.slug}/${sub.slug}`}>{sub.title}</Link>
+                          <li key={i} tw='mt-2' onClick={() => setter('subSection', sub.slug)}>
+                            <Link to={`${pg.slug}/${sect.slug}/${sub.slug}`}>{sub.title}</Link>
                           </li>
                         ))}
                       </ul>

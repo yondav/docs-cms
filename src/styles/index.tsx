@@ -9,7 +9,7 @@ const CustomStyles = createGlobalStyle`
 .dark { ${dark} }
 
 .Toastify__progress-bar {
-  background-color: var(--orange-primary);
+  background-color: var(--primary);
   background: linear-gradient(206.1deg, var(--yellow-primary) 6.41%, var(--red-primary) 89.64%);
 }
 
@@ -46,6 +46,15 @@ p {}
 
 a {
   text-decoration: none;
+}
+
+ul {
+  list-style-type: circle;
+  ${tw`my-6`}
+}
+
+li {
+  ${tw`ml-12`}
 }
 `;
 

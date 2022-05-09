@@ -5,8 +5,7 @@ interface IInteractedBy {
 }
 
 interface IDescription {
-  html: string;
-  markdown: string;
+  raw: any;
 }
 
 export interface IPage {

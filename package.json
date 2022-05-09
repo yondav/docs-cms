@@ -26,6 +26,8 @@
   "dependencies": {
     "@apollo/client": "^3.6.2",
     "@babel/core": "^7.16.10",
+    "@graphcms/rich-text-react-renderer": "^0.5.0",
+    "@graphcms/rich-text-types": "^0.4.0",
     "framer-motion": "^6.3.3",
     "graphql": "^16.4.0",
     "react": "^17.0.0",

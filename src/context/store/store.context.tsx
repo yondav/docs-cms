@@ -50,8 +50,7 @@ const getAll = gql`
       }
       title
       description {
-        html
-        markdown
+        raw
       }
       sections {
         createdBy {
@@ -69,8 +68,7 @@ const getAll = gql`
         slug
         title
         description {
-          html
-          markdown
+          raw
         }
         subSections {
           id
@@ -89,8 +87,7 @@ const getAll = gql`
           slug
           title
           description {
-            html
-            markdown
+            raw
           }
         }
       }
