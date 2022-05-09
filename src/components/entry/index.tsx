@@ -4,7 +4,7 @@ import { RichText } from '@graphcms/rich-text-react-renderer';
 const Entry = (props: { entry }) => (
   <>
     {props.entry && (
-      <article tw='mx-auto w-3/4 p-4'>
+      <article tw='mx-auto my-8 w-3/4 p-4 bg-neutral-200 rounded-lg'>
         {props.entry.__typename.toLowerCase() === 'page' && (
           <h1 className='grdTxt' tw='mb-5'>
             {props.entry?.title}

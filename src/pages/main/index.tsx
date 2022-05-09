@@ -4,7 +4,9 @@ import { Outlet, useParams, Link } from 'react-router-dom';
 
 import { ThemeContext } from '../../context/theme';
 import { StoreContext } from '../../context/store/store.context';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
+import Greek, { paths } from '../../components/svg/icon.greek';
 import Nav from '../../components/nav';
 import SideBar from '../../components/sidebar';
 import Footer from '../../components/footer';
@@ -16,6 +18,13 @@ const Main = () => {
   const { sideBar } = useContext(ThemeContext);
   const { loading, error } = useContext(StoreContext);
   const { page, section, subsection } = useParams();
+  const { isDesktop, isTablet, isMobile, updateMedia } = useMediaQuery();
+
+  useEffect(() => {
+    updateMedia();
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = () => {
@@ -57,6 +66,9 @@ const Main = () => {
             {subsection && <Link to={`/${page}/${section}/${subsection}`}>{deformSlug(subsection)}</Link>}
           </span>
           <section tw='overflow-y-scroll max-h-[95%]'>
+            {paths({ isDesktop, isTablet, isMobile }).map((path, i) => (
+              <Greek key={i} d={path.d} fill={path.fill} style={path.style} />
+            ))}
             <Outlet />
           </section>
         </section>

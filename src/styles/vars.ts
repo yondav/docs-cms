@@ -8,11 +8,18 @@ export const root = `
   --neutral-700: #1E1E1E;
   --neutral-800: #161616;
 
-  --primary: #FCB330;
+  --overlay: rgba(247, 247, 247, .7);
+  --primary: #F96E12;
+
+  --yellow-primary: #fAD126;
+  --yellow-secondary: #FBC62A;
+  --red-primary: #FF544F;
+  --red-secondary: #FE6A48;
+  --orange-primary: #FCB330;
 
   --success: #32A36D;
   --error: #FF544F;
-  --gradient: linear-gradient(90deg, #FF544F 6.41%, #FAD126 89.64%);
+  --gradient: linear-gradient(180deg, #FAD126 6.41%, #FF544F 89.64%);
 
   --twitter: #6da8d2;
   --opensea: #3d81db;
@@ -28,6 +35,10 @@ export const root = `
   `;
 
 export const dark = `
+  --primary: #FCB330;
+
+  --overlay: rgba(33, 33, 33, .7);
+
   --neutral-100: #161616;
   --neutral-200: #1E1E1E;
   --neutral-300: #353535;

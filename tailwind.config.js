@@ -22,6 +22,7 @@ module.exports = {
           700: 'var(--neutral-700)',
           800: 'var(--neutral-800)',
         },
+        overlay: 'var(--overlay)',
       },
       boxShadow: {
         primary: 'var(--shadow)',
