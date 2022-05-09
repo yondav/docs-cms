@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import Socials from '../../components/socials';
+import Socials from '../svg/socials';
 
 const Footer = forwardRef<HTMLElement>((props, footerRef) => {
   return (
-    <footer ref={footerRef} tw='py-8 flex flex-col justify-start items-center text-neutral-500 font-normal	text-sm'>
+    <footer ref={footerRef} tw='py-4 flex flex-col justify-start items-center text-neutral-500 font-normal	text-sm'>
       <div tw='text-center mb-4'>
         <p>&#169; {new Date().getFullYear()} Feta</p>
         <div tw='flex flex-wrap justify-center md:justify-between items-center whitespace-nowrap'>

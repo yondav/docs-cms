@@ -56,6 +56,13 @@ ul {
 li {
   ${tw`ml-12`}
 }
+
+.grdTxt {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 150%;
+}
 `;
 
 const GlobalStyles = () => (

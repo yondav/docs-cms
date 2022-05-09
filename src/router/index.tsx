@@ -10,6 +10,7 @@ const Router = () => {
   return (
     <Routes>
       <Route path='/' element={<Main />}>
+        <Route index element={<p>some form of landing content, redirect back to feta.market perhaps.</p>} />
         <Route path=':page/' element={<Page />}>
           <Route path=':section' element={<Section />}>
             <Route path=':subsection' element={<SubSection />} />

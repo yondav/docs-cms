@@ -1,5 +1,5 @@
 import React from 'react';
-import Social from '../svg/icon.social';
+import Social from '../icon.social';
 
 const Socials = (props: { footer?: boolean }) => {
   return (

@@ -1,5 +1,3 @@
-import tw from 'twin.macro';
-
 export const root = `
   --neutral-100: #FFFFFF;
   --neutral-200: #F7F7F7;
@@ -14,7 +12,7 @@ export const root = `
 
   --success: #32A36D;
   --error: #FF544F;
-  --gradient: linear-gradient(206.1deg, #FAD126 6.41%, #FF544F 89.64%);
+  --gradient: linear-gradient(90deg, #FF544F 6.41%, #FAD126 89.64%);
 
   --twitter: #6da8d2;
   --opensea: #3d81db;

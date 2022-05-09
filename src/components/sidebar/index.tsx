@@ -1,9 +1,35 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import tw, { styled, css } from 'twin.macro';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { StoreContext } from '../../context/store/store.context';
 import Logo from '../svg/logo';
+import { IPage, ISection } from '../../types/store';
+import { IActiveSIdeBar } from '../../types/ui';
+
+const SideBar = () => {
+  const { data } = useContext(StoreContext);
+  const { page, section, subsection } = useParams();
+  const [active, setActive] = useState({ page, section, subsection });
+
+  useEffect(() => {
+    const activeSetter = () => {
+      setActive(prev => ({ ...prev, page, section, subsection }));
+    };
+    activeSetter();
+  }, [page, section, subsection]);
+
+  return (
+    <Container>
+      <div tw='lg:hidden w-32 text-neutral-800 mr-auto px-6 py-4'>
+        <Logo />
+      </div>
+      <Pages active={active} pages={data?.pages} />
+    </Container>
+  );
+};
+
+export default SideBar;
 
 const Container = styled(motion.nav)`
   ${css`
@@ -19,57 +45,48 @@ const Button = styled(motion.div)((props: { active?: boolean }) => [
   props.active && tw`border-neutral-500`,
 ]);
 
-const SideBar = () => {
-  const { data, loading, error } = useContext(StoreContext);
-  const [active, setActive] = useState({ page: '', section: '', subSection: '' });
+const Pages = (props: { active: IActiveSIdeBar; pages: [IPage] | undefined }) => (
+  <>
+    {!!props.pages &&
+      props.pages.length > 0 &&
+      props.pages.map((pg, i) => (
+        <React.Fragment key={i}>
+          <Link to={pg.slug}>
+            <Button>{pg.title}</Button>
+          </Link>
+          <Sections active={props.active} page={pg} />
+        </React.Fragment>
+      ))}
+  </>
+);
 
-  const setter = (model, slug) => {
-    switch (model) {
-      case 'page':
-        return setActive({ ...active, page: slug });
-      case 'section':
-        return setActive({ ...active, section: slug });
-      case 'subSection':
-        return setActive({ ...active, subSection: slug });
-      default:
-        break;
-    }
-  };
-
-  return (
-    <Container>
-      <div tw='lg:hidden w-32 text-neutral-800 mr-auto px-6 py-4'>
-        <Logo />
-      </div>
-      {!!data?.pages &&
-        data?.pages.length > 0 &&
-        data?.pages.map((pg, i) => (
-          <React.Fragment key={i}>
-            <Link to={pg.slug}>
-              <Button onClick={() => setter('page', pg.slug)}>{pg.title}</Button>
-            </Link>
-            {active.page === pg.slug && !!pg.sections && pg.sections.length > 0 && (
-              <ul tw='mt-4'>
-                {pg.sections.map((sect, i) => (
-                  <li key={i} onClick={() => setter('section', sect.slug)} tw='mt-2'>
-                    <Link to={`${pg.slug}/${sect.slug}`}>{sect.title}</Link>
-                    {active.section === sect.slug && !!sect.subSections && sect.subSections.length > 0 && (
-                      <ul tw='mt-4'>
-                        {sect.subSections.map((sub, i) => (
-                          <li key={i} tw='mt-2' onClick={() => setter('subSection', sub.slug)}>
-                            <Link to={`${pg.slug}/${sect.slug}/${sub.slug}`}>{sub.title}</Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </React.Fragment>
+const Sections = (props: { active: IActiveSIdeBar; page: IPage }) => (
+  <>
+    {props.active.page === props.page.slug && !!props.page.sections && props.page.sections.length > 0 && (
+      <ul tw='mt-4'>
+        {props.page.sections.map((sect, i) => (
+          <li key={i} tw='mt-2'>
+            <Link to={`${props.page.slug}/${sect.slug}`}>{sect.title}</Link>
+            <SubSections active={props.active} page={props.page} section={sect} />
+          </li>
         ))}
-    </Container>
-  );
-};
+      </ul>
+    )}
+  </>
+);
 
-export default SideBar;
+const SubSections = (props: { active: IActiveSIdeBar; page: IPage; section: ISection }) => (
+  <>
+    {props.active.section === props.section.slug &&
+      !!props.section.subSections &&
+      props.section.subSections.length > 0 && (
+        <ul tw='mt-4'>
+          {props.section.subSections.map((sub, i) => (
+            <li key={i} tw='mt-2'>
+              <Link to={`${props.page.slug}/${props.section.slug}/${sub.slug}`}>{sub.title}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
+  </>
+);
