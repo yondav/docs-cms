@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Outlet, useParams, Link } from 'react-router-dom';
 
 import { ThemeContext } from '../../context/theme';
@@ -9,8 +10,8 @@ import SideBar from '../../components/sidebar';
 import Footer from '../../components/footer';
 
 const Main = () => {
-  const footerRef = useRef(null);
-  const navRef = useRef(null);
+  const footerRef = useRef<HTMLElement | null>(null);
+  const navRef = useRef<HTMLElement | null>(null);
   const [mainHeight, setMainHeight] = useState<string>('');
   const { sideBar } = useContext(ThemeContext);
   const { loading, error } = useContext(StoreContext);
@@ -36,7 +37,9 @@ const Main = () => {
     <div tw='min-h-screen w-screen flex flex-col justify-between transition-all duration-300 ease-in-out flex flex-col'>
       <Nav ref={navRef} />
       <main tw='w-full flex relative' style={{ height: mainHeight }}>
-        {sideBar && <SideBar />}
+        <AnimatePresence>
+          {sideBar && <SideBar height={`calc(100vh - ${navRef?.current?.offsetHeight}px)`} />}
+        </AnimatePresence>
         <section tw='w-full px-3'>
           <span tw='text-primary text-xs'>
             {page && (

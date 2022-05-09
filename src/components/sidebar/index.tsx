@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import tw, { styled, css } from 'twin.macro';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { StoreContext } from '../../context/store/store.context';
 import { IPage, ISection } from '../../types/store';
 import { IActiveSIdeBar } from '../../types/ui';
+import { sidebar, transition } from '../../styles/framerVariants';
 
-const SideBar = () => {
+const SideBar = (props: { height: string }) => {
   const { data } = useContext(StoreContext);
   const { page, section, subsection } = useParams();
   const [active, setActive] = useState({ page, section, subsection });
@@ -19,7 +20,14 @@ const SideBar = () => {
   }, [page, section, subsection]);
 
   return (
-    <Container>
+    <Container
+      variants={sidebar}
+      initial='hidden'
+      animate='visible'
+      exit='hidden'
+      transition={transition}
+      style={{ height: props.height }}
+    >
       <Pages active={active} pages={data?.pages} />
     </Container>
   );
@@ -32,12 +40,12 @@ const Container = styled(motion.nav)`
     @media (min-width: 768px) {
       flex-basis: 30%;
     }
-    ${tw`border-r border-neutral-300 absolute w-full h-full bg-neutral-200 top-0 left-0 md:relative`}
+    ${tw`border-r border-neutral-300 absolute w-full bg-neutral-200 top-0 left-0 md:relative`}
   `}
 `;
 
 const Button = styled(motion.div)((props: { active?: boolean }) => [
-  tw`m-3 p-5 border border-neutral-300 rounded-lg`,
+  tw`m-3 p-5 border border-neutral-300 rounded-lg text-center`,
   props.active && tw`border-neutral-500`,
 ]);
 
@@ -59,7 +67,7 @@ const Pages = (props: { active: IActiveSIdeBar; pages: [IPage] | undefined }) =>
 const Sections = (props: { active: IActiveSIdeBar; page: IPage }) => (
   <>
     {props.active.page === props.page.slug && !!props.page.sections && props.page.sections.length > 0 && (
-      <ul tw='mt-4'>
+      <ul tw='mt-4 mx-auto w-[fit-content]'>
         {props.page.sections.map((sect, i) => (
           <li key={i} tw='mt-2'>
             <Link to={`${props.page.slug}/${sect.slug}`}>{sect.title}</Link>
