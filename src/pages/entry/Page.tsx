@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 import { StoreContext } from '../../context/store/store.context';
 import Entry from '../../components/entry';
-import { IPage } from '../../types/store';
+import { IPage } from '../../types';
 
 const Page = () => {
   const [currPage, setCurrPage] = useState<IPage | undefined>(undefined);

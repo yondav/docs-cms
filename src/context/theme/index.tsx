@@ -1,27 +1,22 @@
 import React, { createContext, useState, useEffect } from 'react';
-
-interface IThemeContext {
-  dark: boolean;
-  sideBar: boolean;
-  toggleDark?: () => void;
-  toggleSideBar?: () => void;
-}
+import { IThemeContext } from '../../types';
 
 const getCurrentTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const defaultState = {
-  dark: localStorage.getItem('docs_dark') === 'true' || getCurrentTheme(),
-  sideBar: localStorage.getItem('docs_side') ? localStorage.getItem('docs_side') === 'true' : true,
+  dark: localStorage.getItem('feta_dark') === 'true' || getCurrentTheme(),
+  sideBar: localStorage.getItem('feta_side') ? localStorage.getItem('feta_side') === 'true' : true,
 };
 
 export const ThemeContext = createContext<IThemeContext>(defaultState);
 
 export const ThemeProvider: React.FC = ({ children }) => {
   const [dark, setDark] = useState(defaultState.dark);
-  const [sideBar, setSideBar] = useState(defaultState.sideBar);
+  const [sideBar, setSideBar] = useState<boolean>(defaultState.sideBar);
 
   const toggleSideBar = () => {
     setSideBar(!sideBar);
+    localStorage.setItem('feta_sidebar', sideBar.toString());
   };
 
   const toggleDark = () => {
@@ -33,10 +28,10 @@ export const ThemeProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (dark) {
       HTML?.add('dark');
-      localStorage.setItem('dark', 'true');
+      localStorage.setItem('feta_dark', 'true');
     } else {
       HTML?.remove('dark');
-      localStorage.setItem('dark', 'false');
+      localStorage.setItem('feta_dark', 'false');
     }
   }, [dark]);
 

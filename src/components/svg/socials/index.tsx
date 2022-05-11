@@ -1,7 +1,7 @@
 import React from 'react';
 import Social from '../icon.social';
 
-const Socials = (props: { footer?: boolean }) => {
+const Socials = () => {
   return (
     <div tw='w-36 flex justify-between'>
       {/* github */}

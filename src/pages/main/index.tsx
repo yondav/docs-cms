@@ -10,7 +10,7 @@ import Nav from '../../components/nav';
 import SideBar from '../../components/sidebar';
 import Footer from '../../components/footer';
 
-const BreadCrumb = (props: { endpoint: string; slug: string; bullet?: boolean }) => {
+const BreadCrumb: React.FC<{ endpoint: string; slug: string; bullet?: boolean }> = ({ endpoint, slug, bullet }) => {
   const deformSlug = slug => {
     return slug
       .split('-')
@@ -20,8 +20,8 @@ const BreadCrumb = (props: { endpoint: string; slug: string; bullet?: boolean })
 
   return (
     <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1 }}>
-      <Link to={props.endpoint}>{deformSlug(props.slug)}</Link>
-      {props.bullet && <span tw='mx-1'>&bull;</span>}
+      <Link to={endpoint}>{deformSlug(slug)}</Link>
+      {bullet && <span tw='mx-1'>&bull;</span>}
     </motion.span>
   );
 };

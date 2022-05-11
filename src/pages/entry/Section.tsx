@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 import { StoreContext } from '../../context/store/store.context';
 import Entry from '../../components/entry';
-import { ISection } from '../../types/store';
+import { ISection } from '../../types';
 
 const Section = () => {
   const [currSect, setCurrSect] = useState<ISection | undefined>(undefined);

@@ -47,7 +47,7 @@ export const paths = ({ isMobile, isTablet, isDesktop }) => {
   ];
 };
 
-const Greek = (props: { d: string; fill: string; style: any }) => {
+const Greek: React.FC<{ d: string; fill: string; style: any }> = ({ d, fill, style }) => {
   const ref = useRef<HTMLDivElement>(null);
   const viewBox = Math.floor(Math.random() * (32 - 14 + 1) + 14);
   const transformArr = [Math.floor(Math.random() * -10), Math.floor(Math.random() * 10)];
@@ -87,7 +87,7 @@ const Greek = (props: { d: string; fill: string; style: any }) => {
       tw='transition-all duration-300 ease-in-out'
       ref={ref}
       style={{
-        ...props.style,
+        ...style,
         position: 'absolute',
         rotate: transformVals.rotate,
         skew: transformVals.skew,
@@ -97,7 +97,7 @@ const Greek = (props: { d: string; fill: string; style: any }) => {
       }}
     >
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35 35' tw='absolute z-0'>
-        <path d={props.d} fill={props.fill} />
+        <path d={d} fill={fill} />
       </svg>
     </motion.div>
   );

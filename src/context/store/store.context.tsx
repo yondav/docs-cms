@@ -1,12 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { IPage } from '../../types/store';
-
-interface IStoreContext {
-  loading: boolean;
-  error: any;
-  data: { pages: [IPage] } | null;
-}
+import { IStoreContext } from '../../types';
 
 const defaultState = {
   loading: true,
@@ -22,7 +16,6 @@ export const StoreProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = () => {
-      // @ts-ignore
       setStore({ loading, error, data });
     };
     unsubscribe();

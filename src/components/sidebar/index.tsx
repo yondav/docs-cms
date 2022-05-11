@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import tw, { styled, css } from 'twin.macro';
 import { Link, useParams } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { StoreContext } from '../../context/store/store.context';
-import { IPage, ISection } from '../../types/store';
-import { IActiveSIdeBar } from '../../types/ui';
+import { IPage, ISection, IActiveSIdeBar } from '../../types';
 import { sidebar, fadeBounceDown, fadeBounceFromLeft, transitions } from '../../styles/framerVariants';
 
-const SideBar = (props: { height: string }) => {
+const SideBar: React.FC<{ height: string }> = ({ height }) => {
   const { data } = useContext(StoreContext);
   const { page, section, subsection } = useParams();
   const [active, setActive] = useState({ page, section, subsection });
@@ -26,7 +25,7 @@ const SideBar = (props: { height: string }) => {
       animate='visible'
       exit='hidden'
       transition={transitions.sidebar}
-      style={{ height: props.height }}
+      style={{ height: height }}
     >
       <Pages active={active} pages={data?.pages} />
     </Container>
@@ -49,24 +48,24 @@ const Button = styled(motion.div)((props: { active?: boolean }) => [
   props.active && tw`border-neutral-500`,
 ]);
 
-const Pages = (props: { active: IActiveSIdeBar; pages: [IPage] | undefined }) => (
+const Pages: React.FC<{ active: IActiveSIdeBar; pages: [IPage] | undefined }> = ({ active, pages }) => (
   <>
-    {!!props.pages &&
-      props.pages.length > 0 &&
-      props.pages.map((pg, i) => (
+    {!!pages &&
+      pages.length > 0 &&
+      pages.map((pg, i) => (
         <motion.div variants={fadeBounceFromLeft} transition={transitions.smooth} key={i}>
           <Link to={pg.slug} tw='w-full'>
-            <Button active={props.active.page === pg.slug}>{pg.title}</Button>
+            <Button active={active.page === pg.slug}>{pg.title}</Button>
           </Link>
-          <Sections active={props.active} page={pg} />
+          <Sections active={active} page={pg} />
         </motion.div>
       ))}
   </>
 );
 
-const Sections = (props: { active: IActiveSIdeBar; page: IPage }) => (
+const Sections: React.FC<{ active: IActiveSIdeBar; page: IPage }> = ({ active, page }) => (
   <>
-    {props.active.page === props.page.slug && !!props.page.sections && props.page.sections.length > 0 && (
+    {active.page === page.slug && !!page.sections && page.sections.length > 0 && (
       <motion.ul
         variants={fadeBounceDown}
         initial='hidden'
@@ -74,15 +73,15 @@ const Sections = (props: { active: IActiveSIdeBar; page: IPage }) => (
         transition={transitions.smooth}
         tw='my-2 mx-auto w-[fit-content] bg-neutral-200 p-3 rounded-md'
       >
-        {props.page.sections.map((sect, i) => (
+        {page.sections.map((sect, i) => (
           <motion.li
-            variants={fadeBounceDown}
             key={i}
+            variants={fadeBounceDown}
             tw='mt-2'
-            style={{ color: props.active.section === sect.slug && !props.active.subsection ? 'var(--primary)' : '' }}
+            style={{ color: active.section === sect.slug && !active.subsection ? 'var(--primary)' : '' }}
           >
-            <Link to={`${props.page.slug}/${sect.slug}`}>{sect.title}</Link>
-            <SubSections active={props.active} page={props.page} section={sect} />
+            <Link to={`${page.slug}/${sect.slug}`}>{sect.title}</Link>
+            <SubSections active={active} page={page} section={sect} />
           </motion.li>
         ))}
       </motion.ul>
@@ -90,24 +89,20 @@ const Sections = (props: { active: IActiveSIdeBar; page: IPage }) => (
   </>
 );
 
-const SubSections = (props: { active: IActiveSIdeBar; page: IPage; section: ISection }) => (
+const SubSections: React.FC<{ active: IActiveSIdeBar; page: IPage; section: ISection }> = ({
+  active,
+  page,
+  section,
+}) => (
   <>
-    {props.active.section === props.section.slug &&
-      !!props.section.subSections &&
-      props.section.subSections.length > 0 && (
-        <motion.ul
-          variants={fadeBounceDown}
-          initial='hidden'
-          animate='visible'
-          exit='hidden'
-          tw='mt-4 text-neutral-800'
-        >
-          {props.section.subSections.map((sub, i) => (
-            <li key={i} tw='mt-2' style={{ color: props.active.subsection === sub.slug ? 'var(--primary)' : '' }}>
-              <Link to={`${props.page.slug}/${props.section.slug}/${sub.slug}`}>{sub.title}</Link>
-            </li>
-          ))}
-        </motion.ul>
-      )}
+    {active.section === section.slug && !!section.subSections && section.subSections.length > 0 && (
+      <motion.ul variants={fadeBounceDown} initial='hidden' animate='visible' exit='hidden' tw='mt-4 text-neutral-800'>
+        {section.subSections.map((sub, i) => (
+          <li key={i} tw='mt-2' style={{ color: active.subsection === sub.slug ? 'var(--primary)' : '' }}>
+            <Link to={`${page.slug}/${section.slug}/${sub.slug}`}>{sub.title}</Link>
+          </li>
+        ))}
+      </motion.ul>
+    )}
   </>
 );
