@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { StoreContext } from '../../context/store/store.context';
 import { IPage, ISection } from '../../types/store';
 import { IActiveSIdeBar } from '../../types/ui';
-import { sidebar, transition } from '../../styles/framerVariants';
+import { sidebar, fadeBounceDown, fadeBounceFromLeft, transitions } from '../../styles/framerVariants';
 
 const SideBar = (props: { height: string }) => {
   const { data } = useContext(StoreContext);
@@ -25,7 +25,7 @@ const SideBar = (props: { height: string }) => {
       initial='hidden'
       animate='visible'
       exit='hidden'
-      transition={transition}
+      transition={transitions.sidebar}
       style={{ height: props.height }}
     >
       <Pages active={active} pages={data?.pages} />
@@ -54,12 +54,12 @@ const Pages = (props: { active: IActiveSIdeBar; pages: [IPage] | undefined }) =>
     {!!props.pages &&
       props.pages.length > 0 &&
       props.pages.map((pg, i) => (
-        <React.Fragment key={i}>
-          <Link to={pg.slug}>
+        <motion.div variants={fadeBounceFromLeft} transition={transitions.smooth} key={i}>
+          <Link to={pg.slug} tw='w-full'>
             <Button active={props.active.page === pg.slug}>{pg.title}</Button>
           </Link>
           <Sections active={props.active} page={pg} />
-        </React.Fragment>
+        </motion.div>
       ))}
   </>
 );
@@ -67,18 +67,25 @@ const Pages = (props: { active: IActiveSIdeBar; pages: [IPage] | undefined }) =>
 const Sections = (props: { active: IActiveSIdeBar; page: IPage }) => (
   <>
     {props.active.page === props.page.slug && !!props.page.sections && props.page.sections.length > 0 && (
-      <ul tw='my-2 mx-auto w-[fit-content] bg-neutral-200 p-3 rounded-md'>
+      <motion.ul
+        variants={fadeBounceDown}
+        initial='hidden'
+        animate='visible'
+        transition={transitions.smooth}
+        tw='my-2 mx-auto w-[fit-content] bg-neutral-200 p-3 rounded-md'
+      >
         {props.page.sections.map((sect, i) => (
-          <li
+          <motion.li
+            variants={fadeBounceDown}
             key={i}
             tw='mt-2'
             style={{ color: props.active.section === sect.slug && !props.active.subsection ? 'var(--primary)' : '' }}
           >
             <Link to={`${props.page.slug}/${sect.slug}`}>{sect.title}</Link>
             <SubSections active={props.active} page={props.page} section={sect} />
-          </li>
+          </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     )}
   </>
 );
@@ -88,13 +95,19 @@ const SubSections = (props: { active: IActiveSIdeBar; page: IPage; section: ISec
     {props.active.section === props.section.slug &&
       !!props.section.subSections &&
       props.section.subSections.length > 0 && (
-        <ul tw='mt-4 text-neutral-800'>
+        <motion.ul
+          variants={fadeBounceDown}
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
+          tw='mt-4 text-neutral-800'
+        >
           {props.section.subSections.map((sub, i) => (
             <li key={i} tw='mt-2' style={{ color: props.active.subsection === sub.slug ? 'var(--primary)' : '' }}>
               <Link to={`${props.page.slug}/${props.section.slug}/${sub.slug}`}>{sub.title}</Link>
             </li>
           ))}
-        </ul>
+        </motion.ul>
       )}
   </>
 );
