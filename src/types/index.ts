@@ -49,9 +49,9 @@ export interface ISubSection {
   description: IDescription;
 }
 export interface IActiveSIdeBar {
-  page: string | undefined;
-  section: string | undefined;
-  subsection: string | undefined;
+  page?: string;
+  section?: string;
+  subsection?: string;
 }
 
 export interface IThemeContext {

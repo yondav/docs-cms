@@ -6,17 +6,17 @@ import { StoreContext } from '../../context/store/store.context';
 import { IPage, ISection, IActiveSIdeBar } from '../../types';
 import { sidebar, fadeBounceDown, fadeBounceFromLeft, transitions } from '../../styles/framerVariants';
 
-const SideBar: React.FC<{ height: string }> = ({ height }) => {
+const SideBar: React.FC<{ height: string; active: IActiveSIdeBar }> = ({ height, active }) => {
   const { data } = useContext(StoreContext);
-  const { page, section, subsection } = useParams();
-  const [active, setActive] = useState({ page, section, subsection });
+  // const { page, section, subsection } = useParams();
+  // const [active, setActive] = useState({ page, section, subsection });
 
-  useEffect(() => {
-    const activeSetter = () => {
-      setActive(prev => ({ ...prev, page, section, subsection }));
-    };
-    activeSetter();
-  }, [page, section, subsection]);
+  // useEffect(() => {
+  //   const activeSetter = () => {
+  //     setActive(prev => ({ ...prev, page, section, subsection }));
+  //   };
+  //   activeSetter();
+  // }, [page, section, subsection]);
 
   return (
     <Container

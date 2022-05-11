@@ -9,6 +9,7 @@ import Greek, { paths } from '../../components/svg/icon.greek';
 import Nav from '../../components/nav';
 import SideBar from '../../components/sidebar';
 import Footer from '../../components/footer';
+import { IActiveSIdeBar } from '../../types';
 
 const BreadCrumb: React.FC<{ endpoint: string; slug: string; bullet?: boolean }> = ({ endpoint, slug, bullet }) => {
   const deformSlug = slug => {
@@ -33,6 +34,14 @@ const Main = () => {
   const { sideBar } = useContext(ThemeContext);
   const { page, section, subsection } = useParams();
   const { isDesktop, isTablet, isMobile, updateMedia } = useMediaQuery();
+  const [active, setActive] = useState<IActiveSIdeBar>({ page, section, subsection });
+
+  useEffect(() => {
+    const activeSetter = () => {
+      setActive(prev => ({ ...prev, page, section, subsection }));
+    };
+    activeSetter();
+  }, [page, section, subsection]);
 
   useEffect(() => {
     updateMedia();
@@ -53,7 +62,7 @@ const Main = () => {
       <Nav ref={navRef} />
       <main tw='w-full flex relative' style={{ height: mainHeight }}>
         <AnimatePresence>
-          {sideBar && <SideBar height={`calc(100vh - ${navRef?.current?.offsetHeight}px)`} />}
+          {sideBar && <SideBar height={`calc(100vh - ${navRef?.current?.offsetHeight}px)`} active={active} />}
         </AnimatePresence>
         <section tw='w-full px-3 mt-3'>
           <span tw='text-primary text-xs'>
