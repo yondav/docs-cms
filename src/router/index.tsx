@@ -1,25 +1,23 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-const Main = lazy(() => import('../pages/main'));
-const Page = lazy(() => import('../pages/entry/Page'));
-const Section = lazy(() => import('../pages/entry/Section'));
-const SubSection = lazy(() => import('../pages/entry/SubSection'));
+import Main from '../pages/main';
+import Page from '../pages/entry/Page';
+import Section from '../pages/entry/Section';
+import SubSection from '../pages/entry/SubSection';
 
 const Router = () => {
   return (
-    <Suspense fallback=''>
-      <Routes>
-        <Route path='/' element={<Main />}>
-          <Route index element={<p>some form of landing content, redirect back to feta.market perhaps.</p>} />
-          <Route path=':page/' element={<Page />}>
-            <Route path=':section' element={<Section />}>
-              <Route path=':subsection' element={<SubSection />} />
-            </Route>
+    <Routes>
+      <Route path='/' element={<Main />}>
+        <Route index element={<p>some form of landing content, redirect back to feta.market perhaps.</p>} />
+        <Route path=':page/' element={<Page />}>
+          <Route path=':section' element={<Section />}>
+            <Route path=':subsection' element={<SubSection />} />
           </Route>
         </Route>
-      </Routes>
-    </Suspense>
+      </Route>
+    </Routes>
   );
 };
 
