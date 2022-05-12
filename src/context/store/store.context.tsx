@@ -11,7 +11,7 @@ const defaultState = {
 export const StoreContext = createContext<IStoreContext>(defaultState);
 
 export const StoreProvider: React.FC = ({ children }) => {
-  const { loading, error, data } = useQuery(getAll);
+  const { loading, error, data } = useQuery(GET_PAGE_LIST);
   const [store, setStore] = useState<IStoreContext>(defaultState);
 
   useEffect(() => {
@@ -23,6 +23,26 @@ export const StoreProvider: React.FC = ({ children }) => {
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };
+
+const GET_PAGE_LIST = gql`
+  query GetPageList {
+    pages {
+      id
+      slug
+      title
+      sections {
+        id
+        slug
+        title
+        subSections {
+          id
+          slug
+          title
+        }
+      }
+    }
+  }
+`;
 
 const getAll = gql`
   query MyQuery {

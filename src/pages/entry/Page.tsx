@@ -1,28 +1,56 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
-import { StoreContext } from '../../context/store/store.context';
+import { gql, useQuery } from '@apollo/client';
 import Entry from '../../components/entry';
+import SEO from '../../components/seo';
 import { IPage } from '../../types';
 
 const Page = () => {
-  const [currPage, setCurrPage] = useState<IPage | undefined>(undefined);
-  const { data } = useContext(StoreContext);
-  const { page } = useParams();
+  const { page, section } = useParams();
+  const { loading, error, data } = useQuery(GET_PAGE, { variables: { page } });
 
-  useEffect(() => {
-    const unsubscribe = () => {
-      if (!page || !data) return;
-      if (!!data?.pages && data?.pages.length > 0) setCurrPage(data?.pages.find(pg => pg.slug === page));
-    };
-    unsubscribe();
-  }, [data, page]);
+  const renderEntry = useCallback(() => {
+    if (!data) return null;
+    const entry = data.page;
+    return (
+      <>
+        <SEO activePage={entry as IPage} />
+        <Entry entry={entry} />
+        {section && <Outlet context={entry} />}
+      </>
+    );
+  }, [data, section]);
 
-  return (
-    <>
-      <Entry entry={currPage} />
-      <Outlet />
-    </>
-  );
+  return <>{renderEntry()}</>;
 };
 
 export default Page;
+
+const GET_PAGE = gql`
+  query GetPage($page: String!) {
+    page(where: { slug: $page }) {
+      id
+      slug
+      title
+      description {
+        raw
+      }
+      sections {
+        id
+        slug
+        title
+        description {
+          raw
+        }
+        subSections {
+          id
+          slug
+          title
+          description {
+            raw
+          }
+        }
+      }
+    }
+  }
+`;
