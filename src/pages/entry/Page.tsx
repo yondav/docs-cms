@@ -1,28 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
-import { StoreContext } from '../../context/store/store.context';
+import React, { useCallback } from 'react';
+import { useParams, Outlet, useOutletContext } from 'react-router-dom';
 import Entry from '../../components/entry';
-import { IPage } from '../../types';
 
 const Page = () => {
-  const [currPage, setCurrPage] = useState<IPage | undefined>(undefined);
-  const { data } = useContext(StoreContext);
-  const { page } = useParams();
+  const entry = useOutletContext();
+  const { section } = useParams();
 
-  useEffect(() => {
-    const unsubscribe = () => {
-      if (!page || !data) return;
-      if (!!data?.pages && data?.pages.length > 0) setCurrPage(data?.pages.find(pg => pg.slug === page));
-    };
-    unsubscribe();
-  }, [data, page]);
+  const renderEntry = useCallback(() => {
+    if (!entry) return null;
+    return (
+      <>
+        <Entry entry={entry} />
+        {section && <Outlet context={entry} />}
+      </>
+    );
+  }, [section]);
 
-  return (
-    <>
-      <Entry entry={currPage} />
-      <Outlet />
-    </>
-  );
+  return <>{renderEntry()}</>;
 };
 
 export default Page;

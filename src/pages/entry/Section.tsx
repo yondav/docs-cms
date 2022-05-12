@@ -1,27 +1,27 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, useOutletContext } from 'react-router-dom';
 import { StoreContext } from '../../context/store/store.context';
+import { IPage, ISection } from '../../types';
 import Entry from '../../components/entry';
-import { ISection } from '../../types';
 
 const Section = () => {
-  const [currSect, setCurrSect] = useState<ISection | undefined>(undefined);
-  const { data } = useContext(StoreContext);
+  const entry = useOutletContext();
   const { page, section } = useParams();
+  const { data } = useContext(StoreContext);
+  const [currSect, setCurrSect] = useState<ISection | undefined>(undefined);
 
   useEffect(() => {
     const unsubscribe = () => {
       if (!page || !section || !data) return;
-      if (!!data?.pages && data?.pages.length > 0)
-        setCurrSect(data?.pages.find(pg => pg.slug === page)?.sections.find(sect => sect.slug === section));
+      setCurrSect((entry as IPage).sections.find(sect => sect.slug === section));
     };
     unsubscribe();
-  }, [data, page, section]);
+  }, [data, page, section, entry]);
 
   return (
     <>
       <Entry entry={currSect} />
-      <Outlet />
+      <Outlet context={currSect} />
     </>
   );
 };

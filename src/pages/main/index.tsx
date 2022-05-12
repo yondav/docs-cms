@@ -1,31 +1,18 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Outlet, useParams, Link } from 'react-router-dom';
+import React, { useContext, useRef, useState, useEffect, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { Outlet, useParams } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
 
 import { ThemeContext } from '../../context/theme';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 import Greek, { paths } from '../../components/svg/icon.greek';
+import SEO from '../../components/seo';
 import Nav from '../../components/nav';
+import BreadCrumb from '../../components/breadCrumb';
 import SideBar from '../../components/sidebar';
 import Footer from '../../components/footer';
-import { IActiveSIdeBar } from '../../types';
-
-const BreadCrumb: React.FC<{ endpoint: string; slug: string; bullet?: boolean }> = ({ endpoint, slug, bullet }) => {
-  const deformSlug = slug => {
-    return slug
-      .split('-')
-      .map(word => word[0].toUpperCase() + word.substr(1).toLowerCase())
-      .join(' ');
-  };
-
-  return (
-    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1 }}>
-      <Link to={endpoint}>{deformSlug(slug)}</Link>
-      {bullet && <span tw='mx-1'>&bull;</span>}
-    </motion.span>
-  );
-};
+import { IActiveSIdeBar, IPage } from '../../types';
 
 const Main = () => {
   const footerRef = useRef<HTMLElement | null>(null);
@@ -33,6 +20,7 @@ const Main = () => {
   const [mainHeight, setMainHeight] = useState<string>('');
   const { sideBar } = useContext(ThemeContext);
   const { page, section, subsection } = useParams();
+  const { loading, error, data } = useQuery(GET_PAGE, { variables: { page: page ? page : 'getting-started' } });
   const { isDesktop, isTablet, isMobile, updateMedia } = useMediaQuery();
   const [active, setActive] = useState<IActiveSIdeBar>({ page, section, subsection });
 
@@ -57,6 +45,21 @@ const Main = () => {
     unsubscribe();
   }, [footerRef, navRef]);
 
+  const renderPage = useCallback(() => {
+    if (!active.page || active.page === '' || !data) return <SEO />;
+    // if (!data) return null;
+
+    const entry = data.page;
+    return (
+      <>
+        <SEO activePage={entry as IPage} />
+        <Outlet context={entry} />
+      </>
+    );
+
+    // return <Outlet />;
+  }, [active.page, data]);
+
   return (
     <>
       <Nav ref={navRef} />
@@ -74,7 +77,7 @@ const Main = () => {
             {paths({ isDesktop, isTablet, isMobile }).map((path, i) => (
               <Greek key={i} d={path.d} fill={path.fill} style={path.style} />
             ))}
-            <Outlet />
+            {renderPage()}
           </div>
         </section>
       </main>
@@ -84,3 +87,32 @@ const Main = () => {
 };
 
 export default Main;
+
+const GET_PAGE = gql`
+  query GetPage($page: String!) {
+    page(where: { slug: $page }) {
+      id
+      slug
+      title
+      description {
+        raw
+      }
+      sections {
+        id
+        slug
+        title
+        description {
+          raw
+        }
+        subSections {
+          id
+          slug
+          title
+          description {
+            raw
+          }
+        }
+      }
+    }
+  }
+`;
