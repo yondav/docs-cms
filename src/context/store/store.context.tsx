@@ -44,66 +44,66 @@ const GET_PAGE_LIST = gql`
   }
 `;
 
-const getAll = gql`
-  query MyQuery {
-    pages {
-      id
-      slug
-      createdAt
-      createdBy {
-        id
-        name
-        picture
-      }
-      updatedAt
-      updatedBy {
-        id
-        name
-        picture
-      }
-      title
-      description {
-        raw
-      }
-      sections {
-        createdBy {
-          id
-          name
-          picture
-          createdAt
-        }
-        updatedBy {
-          id
-          name
-          picture
-        }
-        updatedAt
-        slug
-        title
-        description {
-          raw
-        }
-        subSections {
-          id
-          createdAt
-          createdBy {
-            id
-            name
-            picture
-          }
-          updatedBy {
-            id
-            name
-            picture
-          }
-          updatedAt
-          slug
-          title
-          description {
-            raw
-          }
-        }
-      }
-    }
-  }
-`;
+// const getAll = gql`
+//   query MyQuery {
+//     pages {
+//       id
+//       slug
+//       createdAt
+//       createdBy {
+//         id
+//         name
+//         picture
+//       }
+//       updatedAt
+//       updatedBy {
+//         id
+//         name
+//         picture
+//       }
+//       title
+//       description {
+//         raw
+//       }
+//       sections {
+//         createdBy {
+//           id
+//           name
+//           picture
+//           createdAt
+//         }
+//         updatedBy {
+//           id
+//           name
+//           picture
+//         }
+//         updatedAt
+//         slug
+//         title
+//         description {
+//           raw
+//         }
+//         subSections {
+//           id
+//           createdAt
+//           createdBy {
+//             id
+//             name
+//             picture
+//           }
+//           updatedBy {
+//             id
+//             name
+//             picture
+//           }
+//           updatedAt
+//           slug
+//           title
+//           description {
+//             raw
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
