@@ -3,9 +3,13 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { IPage } from '../../types';
 
-const SEO: React.FC<{ activePage?: IPage; meta?: []; description?: string; image?: string; url?: string }> = ({
-  activePage,
-}) => {
+const SEO: React.FC<{
+  activePage?: IPage;
+  meta?: [];
+  description?: string;
+  image?: string;
+  url?: string;
+}> = ({ activePage }) => {
   const { pathname } = useLocation();
   const { page } = useParams();
   const [title, setTitle] = useState<string>(page && activePage ? activePage.title : 'Documentation');

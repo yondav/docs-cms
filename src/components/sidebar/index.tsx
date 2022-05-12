@@ -6,17 +6,11 @@ import { StoreContext } from '../../context/store/store.context';
 import { IPage, ISection, IActiveSIdeBar } from '../../types';
 import { sidebar, fadeBounceDown, fadeBounceFromLeft, transitions } from '../../styles/framerVariants';
 
-const SideBar: React.FC<{ height: string; active: IActiveSIdeBar }> = ({ height, active }) => {
+const SideBar: React.FC<{
+  height: string;
+  active: IActiveSIdeBar;
+}> = ({ height, active }) => {
   const { data } = useContext(StoreContext);
-  // const { page, section, subsection } = useParams();
-  // const [active, setActive] = useState({ page, section, subsection });
-
-  // useEffect(() => {
-  //   const activeSetter = () => {
-  //     setActive(prev => ({ ...prev, page, section, subsection }));
-  //   };
-  //   activeSetter();
-  // }, [page, section, subsection]);
 
   return (
     <Container
@@ -48,7 +42,10 @@ const Button = styled(motion.div)((props: { active?: boolean }) => [
   props.active && tw`border-neutral-500`,
 ]);
 
-const Pages: React.FC<{ active: IActiveSIdeBar; pages: [IPage] | undefined }> = ({ active, pages }) => (
+const Pages: React.FC<{
+  active: IActiveSIdeBar;
+  pages: [IPage] | undefined;
+}> = ({ active, pages }) => (
   <>
     {!!pages &&
       pages.length > 0 &&
@@ -63,7 +60,10 @@ const Pages: React.FC<{ active: IActiveSIdeBar; pages: [IPage] | undefined }> = 
   </>
 );
 
-const Sections: React.FC<{ active: IActiveSIdeBar; page: IPage }> = ({ active, page }) => (
+const Sections: React.FC<{
+  active: IActiveSIdeBar;
+  page: IPage;
+}> = ({ active, page }) => (
   <>
     {active.page === page.slug && !!page.sections && page.sections.length > 0 && (
       <motion.ul
@@ -89,11 +89,11 @@ const Sections: React.FC<{ active: IActiveSIdeBar; page: IPage }> = ({ active, p
   </>
 );
 
-const SubSections: React.FC<{ active: IActiveSIdeBar; page: IPage; section: ISection }> = ({
-  active,
-  page,
-  section,
-}) => (
+const SubSections: React.FC<{
+  active: IActiveSIdeBar;
+  page: IPage;
+  section: ISection;
+}> = ({ active, page, section }) => (
   <>
     {active.section === section.slug && !!section.subSections && section.subSections.length > 0 && (
       <motion.ul variants={fadeBounceDown} initial='hidden' animate='visible' exit='hidden' tw='mt-4 text-neutral-800'>

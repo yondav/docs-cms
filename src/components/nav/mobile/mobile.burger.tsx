@@ -26,10 +26,10 @@ const StyledBurger = styled.div((props: { $active?: boolean }) => [
   `,
 ]);
 
-const Burger = (props: { active: boolean }) => {
+const Burger: React.FC<{ active: boolean }> = ({ active }) => {
   return (
     <div tw='relative flex justify-center items-center border border-neutral-300 rounded-md h-[36px] w-[36px] cursor-pointer'>
-      <StyledBurger $active={props.active}>
+      <StyledBurger $active={active}>
         <div className='top-bun' />
         <div className='bottom-bun' />
       </StyledBurger>

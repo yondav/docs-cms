@@ -47,7 +47,11 @@ export const paths = ({ isMobile, isTablet, isDesktop }) => {
   ];
 };
 
-const Greek: React.FC<{ d: string; fill: string; style: any }> = ({ d, fill, style }) => {
+const Greek: React.FC<{
+  d: string;
+  fill: string;
+  style: any;
+}> = ({ d, fill, style }) => {
   const ref = useRef<HTMLDivElement>(null);
   const viewBox = Math.floor(Math.random() * (32 - 14 + 1) + 14);
   const transformArr = [Math.floor(Math.random() * -10), Math.floor(Math.random() * 10)];

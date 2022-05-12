@@ -8,10 +8,10 @@ const SideNav = styled(motion.div)(() => [
   tw`focus:outline-none border-r border-t border-neutral-300 bg-neutral-200 py-4 left-0 top-0 fixed rounded-tr-lg shadow-xl z-20`,
 ]);
 
-const Container = (props: { active: boolean; children }) => {
+const Container: React.FC<{ active: boolean }> = ({ active, children }) => {
   return (
     <AnimatePresence>
-      {props.active && (
+      {active && (
         <SideNav
           tabIndex={-1}
           initial={{ opacity: 0, width: 0 }}
@@ -19,7 +19,7 @@ const Container = (props: { active: boolean; children }) => {
           exit={{ opacity: 0, width: 0 }}
           transition={{ duration: 0.3, ease: 'linear' }}
         >
-          <div tw='flex flex-col w-full'>{props.children}</div>
+          <div tw='flex flex-col w-full'>{children}</div>
         </SideNav>
       )}
     </AnimatePresence>

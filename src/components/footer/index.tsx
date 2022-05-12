@@ -34,7 +34,7 @@ const Footer = forwardRef<HTMLElement>((props, footerRef) => {
           </Link>
         </div>
       </div>
-      <Socials footer />
+      <Socials />
     </footer>
   );
 });

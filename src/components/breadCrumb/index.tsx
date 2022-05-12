@@ -2,7 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const BreadCrumb: React.FC<{ endpoint: string; slug: string; bullet?: boolean }> = ({ endpoint, slug, bullet }) => {
+const BreadCrumb: React.FC<{
+  endpoint: string;
+  slug: string;
+  bullet?: boolean;
+}> = ({ endpoint, slug, bullet }) => {
   const deformSlug = slug => {
     return slug
       .split('-')
