@@ -1,5 +1,5 @@
 import React from 'react';
-import tw, { styled } from 'twin.macro';
+import tw, { styled, css } from 'twin.macro';
 import { motion } from 'framer-motion';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 
@@ -15,7 +15,7 @@ const Entry: React.FC<{ entry: any }> = ({ entry }) => {
           initial='hidden'
           whileInView='visible'
           transition={transitions.smooth}
-          tw='mx-auto w-3/4 p-4 bg-neutral-200 rounded-lg'
+          tw='mx-auto w-3/4 p-4 rounded-lg'
         >
           {entry.__typename.toLowerCase() === 'page' && <GradientText type='h1'>{entry?.title}</GradientText>}
           {entry.__typename.toLowerCase() === 'section' && <GradientText type='h2'>{entry?.title}</GradientText>}
@@ -34,6 +34,7 @@ const Entry: React.FC<{ entry: any }> = ({ entry }) => {
                 a: ({ children, ...props }) => <copy.A {...props}>{children}</copy.A>,
                 ol: ({ children, ...props }) => <copy.OL {...props}>{children}</copy.OL>,
                 ul: ({ children, ...props }) => <copy.UL {...props}>{children}</copy.UL>,
+                table: ({ children, ...props }) => <copy.Table {...props}>{children}</copy.Table>,
               }}
             />
           )}
@@ -45,7 +46,7 @@ const Entry: React.FC<{ entry: any }> = ({ entry }) => {
 
 export default Entry;
 
-const copy = {
+export const copy = {
   H1: styled.h1`
     ${tw`text-[1.675em] font-extrabold my-2.5`}
   `,
@@ -78,5 +79,16 @@ const copy = {
   `,
   BlockQuote: styled.blockquote`
     ${tw`border-l-8 border-neutral-300 bg-neutral-100 px-2.5 py-2 my-6 `}
+  `,
+  Table: styled.table`
+    ${css`
+      ${tw`border-collapse border border-neutral-300`}
+      & th {
+        ${tw`border border-neutral-400 p-5`}
+      }
+      & td {
+        ${tw`border border-neutral-500 p-5`}
+      }
+    `}
   `,
 };
